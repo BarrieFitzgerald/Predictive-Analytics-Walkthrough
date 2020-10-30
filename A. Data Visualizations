@@ -1,0 +1,111 @@
+#########################
+#########################
+## Data Visualizations ##
+#########################
+#########################
+
+##  install.packages("AppliedPredictiveModeling")
+library(AppliedPredictiveModeling)
+##  install.packages("caret")
+library(caret)
+
+#####################
+## Data Structures ##
+#####################
+
+## provides the overall structure of the data
+        ## each variable will have their classification
+str(iris)
+
+###################################
+## Scatterplots of all variables ##
+###################################
+
+transparentTheme(trans = .4)
+
+## Displays a scatter plot of each variable
+        ## will sort of allow you to see some correlation or 
+        ## natural groupings easily
+##  install.packages("AppliedPredictiveModeling")
+
+        ## basic plots with no natural groupings
+featurePlot(x = iris[, 1:4], 
+            y = iris$Species, 
+            plot = "pairs",
+            ## Add a key at the top
+            auto.key = list(columns = 3))
+
+        ## plots with groupings circled
+featurePlot(x = iris[, 1:4], 
+            y = iris$Species, 
+            plot = "ellipse",
+            ## Add a key at the top
+            auto.key = list(columns = 3))
+
+        ## scatterplot
+featurePlot(x = iris[ , c('Sepal.Length', 
+                          'Sepal.Width', 
+                          'Petal.Length')], 
+            y = iris[ , c('Petal.Width')], 
+            plot = "scatter", 
+            layout = c(3, 1), 
+            labels = c(NA, "Petal Width")) 
+
+
+        ## scatterplot with regression line
+featurePlot(x = iris[ , c('Sepal.Length', 
+                          'Sepal.Width', 
+                          'Petal.Length')], 
+            y = iris[ , c('Petal.Width')], 
+            plot = "scatter", 
+            type = c("p", "r"),
+            layout = c(3, 1), 
+            labels = c(NA, "Petal Width")) 
+
+        ## scatterplot with smooth regression line
+featurePlot(x = iris[ , c('Sepal.Length', 
+                          'Sepal.Width', 
+                          'Petal.Length')], 
+            y = iris[ , c('Petal.Width')], 
+            plot = "scatter", 
+            type = c("p", "smooth"),
+            layout = c(3, 1), 
+            labels = c(NA, "Petal Width")) 
+
+###################
+## Density Plots ##
+###################
+
+transparentTheme(trans = .9)
+
+        ## displays distirbution of the data
+        ## allows for one to see if any are any overlapping
+        ## of the data
+
+featurePlot(x = iris[, 1:4], 
+            y = iris$Species,
+            plot = "density", 
+            ## Pass in options to xyplot() to 
+            ## make it prettier
+            scales = list(x = list(relation="free"), 
+                          y = list(relation="free")), 
+            adjust = 1.5, 
+            pch = "|", 
+            layout = c(4, 1), 
+            auto.key = list(columns = 3))
+
+###############
+## Box Plots ##
+###############
+        
+        ## visually displays the quartiles of the data
+        ## distirbution
+
+featurePlot(x = iris[, 1:4], 
+            y = iris$Species, 
+            plot = "box", 
+            ## Pass in options to bwplot() 
+            scales = list(y = list(relation="free"),
+                          x = list(rot = 90)),  
+            layout = c(4,1 ), 
+            auto.key = list(columns = 2))
